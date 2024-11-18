@@ -1,0 +1,325 @@
+!DOCTYPE html
+html lang=en
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0
+    titleEduConnect - Learning Platformtitle
+    script src=httpscdn.tailwindcss.comscript
+    link href=httpscdn.jsdelivr.netnpmbootstrap-icons@1.11.1fontbootstrap-icons.css rel=stylesheet
+    link href=httpsfonts.googleapis.comcss2family=Poppinswght@300;400;500;600;700&display=swap rel=stylesheet
+    style
+        body { font-family 'Poppins', sans-serif; }
+        .hide { display none; }
+    style
+head
+body class=bg-gray-50
+    nav class=bg-white shadow-md p-4
+        div class=container mx-auto flex justify-between items-center
+            h1 class=text-2xl font-bold text-blue-600EduConnecth1
+            div id=navButtons
+                button onclick=showLogin() class=bg-blue-500 text-white px-4 py-2 rounded-lg mr-2Loginbutton
+                button onclick=showRegister() class=bg-green-500 text-white px-4 py-2 rounded-lgRegisterbutton
+            div
+            button id=logoutBtn onclick=logout() class=hidden bg-red-500 text-white px-4 py-2 rounded-lgLogoutbutton
+        div
+    nav
+
+    !-- Login Form --
+    div id=loginForm class=container mx-auto mt-10 max-w-md p-6 bg-white rounded-lg shadow-lg
+        h2 class=text-2xl font-bold mb-6 text-centerLoginh2
+        form onsubmit=handleLogin(event)
+            div class=mb-4
+                label class=block text-gray-700 mb-2Emaillabel
+                input type=email id=loginEmail required class=w-full p-2 border rounded-lg
+            div
+            div class=mb-4
+                label class=block text-gray-700 mb-2Passwordlabel
+                input type=password id=loginPassword required class=w-full p-2 border rounded-lg
+            div
+            div class=mb-4
+                label class=block text-gray-700 mb-2Rolelabel
+                select id=loginRole class=w-full p-2 border rounded-lg
+                    option value=studentStudentoption
+                    option value=teacherTeacheroption
+                select
+            div
+            button type=submit class=w-full bg-blue-500 text-white py-2 rounded-lg hoverbg-blue-600Loginbutton
+            p class=text-center mt-4
+                a href=# onclick=showForgotPassword() class=text-blue-500Forgot Passworda
+            p
+        form
+    div
+
+    !-- Register Form --
+    div id=registerForm class=container mx-auto mt-10 max-w-md p-6 bg-white rounded-lg shadow-lg hide
+        h2 class=text-2xl font-bold mb-6 text-centerRegisterh2
+        form onsubmit=handleRegister(event)
+            div class=mb-4
+                label class=block text-gray-700 mb-2Namelabel
+                input type=text id=regName required class=w-full p-2 border rounded-lg
+            div
+            div class=mb-4
+                label class=block text-gray-700 mb-2Emaillabel
+                input type=email id=regEmail required class=w-full p-2 border rounded-lg
+            div
+            div class=mb-4
+                label class=block text-gray-700 mb-2Passwordlabel
+                input type=password id=regPassword required class=w-full p-2 border rounded-lg
+            div
+            div class=mb-4
+                label class=block text-gray-700 mb-2Rolelabel
+                select id=regRole class=w-full p-2 border rounded-lg
+                    option value=studentStudentoption
+                    option value=teacherTeacheroption
+                select
+            div
+            button type=submit class=w-full bg-green-500 text-white py-2 rounded-lg hoverbg-green-600Registerbutton
+        form
+    div
+
+    !-- Forgot Password Form --
+    div id=forgotPasswordForm class=container mx-auto mt-10 max-w-md p-6 bg-white rounded-lg shadow-lg hide
+        h2 class=text-2xl font-bold mb-6 text-centerReset Passwordh2
+        form onsubmit=handleForgotPassword(event)
+            div class=mb-4
+                label class=block text-gray-700 mb-2Emaillabel
+                input type=email id=resetEmail required class=w-full p-2 border rounded-lg
+            div
+            button type=submit class=w-full bg-blue-500 text-white py-2 rounded-lg hoverbg-blue-600Reset Passwordbutton
+        form
+    div
+
+    !-- Dashboard --
+    div id=dashboard class=container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg hide
+        div id=teacherDashboard class=hide
+            h2 class=text-2xl font-bold mb-6Teacher Dashboardh2
+            div class=grid grid-cols-1 mdgrid-cols-2 gap-6
+                !-- Upload Section --
+                div class=p-4 border rounded-lg
+                    h3 class=text-xl font-bold mb-4Upload Contenth3
+                    form onsubmit=handleUpload(event)
+                        div class=mb-4
+                            label class=block text-gray-700 mb-2Titlelabel
+                            input type=text id=uploadTitle required class=w-full p-2 border rounded-lg
+                        div
+                        div class=mb-4
+                            label class=block text-gray-700 mb-2Filelabel
+                            input type=file id=uploadFile required class=w-full p-2 border rounded-lg
+                        div
+                        button type=submit class=bg-blue-500 text-white px-4 py-2 rounded-lgUploadbutton
+                    form
+                div
+                !-- Create Quiz --
+                div class=p-4 border rounded-lg
+                    h3 class=text-xl font-bold mb-4Create Quizh3
+                    form onsubmit=handleCreateQuiz(event)
+                        div class=mb-4
+                            label class=block text-gray-700 mb-2Questionlabel
+                            input type=text id=quizQuestion required class=w-full p-2 border rounded-lg
+                        div
+                        div class=mb-4
+                            label class=block text-gray-700 mb-2Options (comma-separated)label
+                            input type=text id=quizOptions required class=w-full p-2 border rounded-lg
+                        div
+                        div class=mb-4
+                            label class=block text-gray-700 mb-2Correct Answerlabel
+                            input type=text id=quizAnswer required class=w-full p-2 border rounded-lg
+                        div
+                        button type=submit class=bg-green-500 text-white px-4 py-2 rounded-lgCreate Quizbutton
+                    form
+                div
+            div
+        div
+
+        div id=studentDashboard class=hide
+            h2 class=text-2xl font-bold mb-6Student Dashboardh2
+            div class=grid grid-cols-1 mdgrid-cols-2 gap-6
+                !-- Content List --
+                div class=p-4 border rounded-lg
+                    h3 class=text-xl font-bold mb-4Available Contenth3
+                    div id=contentList class=space-y-4
+                        !-- Content will be dynamically added here --
+                    div
+                div
+                !-- Quiz Section --
+                div class=p-4 border rounded-lg
+                    h3 class=text-xl font-bold mb-4Active Quizh3
+                    div id=quizSection class=space-y-4
+                        !-- Quiz will be dynamically added here --
+                    div
+                div
+            div
+        div
+    div
+
+    script
+         Simulated data storage
+        let users = [];
+        let content = [];
+        let quizzes = [];
+        let currentUser = null;
+
+         UI Control Functions
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hide');
+            document.getElementById('registerForm').classList.add('hide');
+            document.getElementById('forgotPasswordForm').classList.add('hide');
+            document.getElementById('dashboard').classList.add('hide');
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').classList.add('hide');
+            document.getElementById('registerForm').classList.remove('hide');
+            document.getElementById('forgotPasswordForm').classList.add('hide');
+            document.getElementById('dashboard').classList.add('hide');
+        }
+
+        function showForgotPassword() {
+            document.getElementById('loginForm').classList.add('hide');
+            document.getElementById('registerForm').classList.add('hide');
+            document.getElementById('forgotPasswordForm').classList.remove('hide');
+            document.getElementById('dashboard').classList.add('hide');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginForm').classList.add('hide');
+            document.getElementById('registerForm').classList.add('hide');
+            document.getElementById('forgotPasswordForm').classList.add('hide');
+            document.getElementById('dashboard').classList.remove('hide');
+            document.getElementById('navButtons').classList.add('hide');
+            document.getElementById('logoutBtn').classList.remove('hidden');
+
+            if (currentUser.role === 'teacher') {
+                document.getElementById('teacherDashboard').classList.remove('hide');
+                document.getElementById('studentDashboard').classList.add('hide');
+            } else {
+                document.getElementById('teacherDashboard').classList.add('hide');
+                document.getElementById('studentDashboard').classList.remove('hide');
+                updateContentList();
+                updateQuizSection();
+            }
+        }
+
+         Handle Forms
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const role = document.getElementById('loginRole').value;
+
+            const user = users.find(u = u.email === email && u.password === password && u.role === role);
+            if (user) {
+                currentUser = user;
+                showDashboard();
+            } else {
+                alert('Invalid credentials!');
+            }
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const role = document.getElementById('regRole').value;
+
+            if (users.some(u = u.email === email)) {
+                alert('Email already registered!');
+                return;
+            }
+
+            users.push({ name, email, password, role });
+            alert('Registration successful! Please login.');
+            showLogin();
+        }
+
+        function handleForgotPassword(event) {
+            event.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+            alert('Password reset link sent to your email!');
+            showLogin();
+        }
+
+        function handleUpload(event) {
+            event.preventDefault();
+            const title = document.getElementById('uploadTitle').value;
+            const file = document.getElementById('uploadFile').value;
+            content.push({ title, file, uploader currentUser.email });
+            alert('Content uploaded successfully!');
+            event.target.reset();
+        }
+
+        function handleCreateQuiz(event) {
+            event.preventDefault();
+            const question = document.getElementById('quizQuestion').value;
+            const options = document.getElementById('quizOptions').value.split(',').map(opt = opt.trim());
+            const answer = document.getElementById('quizAnswer').value;
+            quizzes.push({ question, options, answer, creator currentUser.email });
+            alert('Quiz created successfully!');
+            event.target.reset();
+        }
+
+        function updateContentList() {
+            const contentList = document.getElementById('contentList');
+            contentList.innerHTML = content.map(item = `
+                div class=p-4 bg-gray-100 rounded-lg
+                    h4 class=font-bold${item.title}h4
+                    p class=text-sm text-gray-600Uploaded by ${item.uploader}p
+                    button onclick=downloadContent('${item.title}') class=mt-2 bg-blue-500 text-white px-3 py-1 rounded
+                        Download
+                    button
+                div
+            `).join('');
+        }
+
+        function updateQuizSection() {
+            const quizSection = document.getElementById('quizSection');
+            if (quizzes.length  0) {
+                const quiz = quizzes[quizzes.length - 1];
+                quizSection.innerHTML = `
+                    div class=p-4 bg-gray-100 rounded-lg
+                        h4 class=font-bold${quiz.question}h4
+                        div class=mt-2 space-y-2
+                            ${quiz.options.map(opt = `
+                                label class=block
+                                    input type=radio name=quiz value=${opt} ${opt}
+                                label
+                            `).join('')}
+                        div
+                        button onclick=submitQuiz() class=mt-4 bg-green-500 text-white px-3 py-1 rounded
+                            Submit Answer
+                        button
+                    div
+                `;
+            } else {
+                quizSection.innerHTML = 'pNo active quizzes available.p';
+            }
+        }
+
+        function downloadContent(title) {
+            alert(`Downloading ${title}...`);
+        }
+
+        function submitQuiz() {
+            const selected = document.querySelector('input[name=quiz]checked');
+            if (!selected) {
+                alert('Please select an answer!');
+                return;
+            }
+            const quiz = quizzes[quizzes.length - 1];
+            if (selected.value === quiz.answer) {
+                alert('Correct answer!');
+            } else {
+                alert('Incorrect answer. Try again!');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('logoutBtn').classList.add('hidden');
+            document.getElementById('navButtons').classList.remove('hide');
+            showLogin();
+        }
+    script
+body
+html
